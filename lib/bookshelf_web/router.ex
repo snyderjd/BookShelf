@@ -28,6 +28,13 @@ defmodule BookshelfWeb.Router do
     live "/books/:id", BookLive.Show, :show
     live "/books/:id/show/edit", BookLive.Show, :edit
 
+    live "/authors", AuthorLive.Index, :index
+    live "/authors/new", AuthorLive.Index, :new
+    live "/authors/:id/edit", AuthorLive.Index, :edit
+
+    live "/authors/:id", AuthorLive.Show, :show
+    live "/authors/:id/show/edit", AuthorLive.Show, :edit
+
   end
 
   # Other scopes may use custom stacks.
