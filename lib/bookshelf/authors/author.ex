@@ -5,6 +5,8 @@ defmodule Bookshelf.Authors.Author do
   schema "authors" do
     field :name, :string
 
+    many_to_many :books, Bookshelf.Books.Book, join_through: Bookshelf.BooksAuthors
+
     timestamps()
   end
 
