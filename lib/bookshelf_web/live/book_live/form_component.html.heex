@@ -18,7 +18,7 @@
     <%= error_tag f, :description %>
 
     <%= label f, :authors %>
-    <%= multiple_select f, :authors, ["Option 1": 1, "Option 2": 2] %>
+    <%= multiple_select f, :authors, get_authors() %>
     <%= error_tag f, :authors %>
 
     <div>

@@ -16,5 +16,6 @@ defmodule Bookshelf.Books.Book do
     book
     |> cast(attrs, [:title, :description])
     |> validate_required([:title, :description])
+    |> put_assoc(:authors, attrs["authors"])
   end
 end

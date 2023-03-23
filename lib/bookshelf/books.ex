@@ -4,7 +4,7 @@ defmodule Bookshelf.Books do
   """
 
   import Ecto.Query, warn: false
-  alias Bookshelf.Repo
+  alias Bookshelf.{Authors, Repo}
 
   alias Bookshelf.Books.Book
 
@@ -28,10 +28,9 @@ defmodule Bookshelf.Books do
       ** (Ecto.NoResultsError)
   """
   def get_book!(id) do
-    IO.inspect(id, label: "id")
     Book
-    |> Repo.get!(id)
     |> preload(:authors)
+    |> Repo.get!(id)
   end
 
   @doc """
@@ -57,8 +56,19 @@ defmodule Bookshelf.Books do
       {:error, %Ecto.Changeset{}}
   """
   def update_book(%Book{} = book, attrs) do
+    selected_author_ids =
+      attrs["authors"]
+      |> Enum.map(fn string -> String.to_integer(string) end)
+
+    selected_authors =
+      Authors.list_authors()
+      |> Enum.filter(fn author -> author.id in selected_author_ids end)
+
+    updated_attrs = Map.put(attrs, "authors", selected_authors)
+
     book
-    |> Book.changeset(attrs)
+    |> Repo.preload(:authors)
+    |> Book.changeset(updated_attrs)
     |> Repo.update()
   end
 

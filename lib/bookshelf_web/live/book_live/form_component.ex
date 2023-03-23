@@ -2,6 +2,7 @@ defmodule BookshelfWeb.BookLive.FormComponent do
   use BookshelfWeb, :live_component
 
   alias Bookshelf.Books
+  alias Bookshelf.Authors
 
   @impl true
   def update(%{book: book} = assigns, socket) do
@@ -24,7 +25,17 @@ defmodule BookshelfWeb.BookLive.FormComponent do
   end
 
   def handle_event("save", %{"book" => book_params}, socket) do
+    IO.inspect(book_params, label: "book_params")
+    IO.inspect(socket.assigns.action, label: "socket.assigns.action")
     save_book(socket, socket.assigns.action, book_params)
+  end
+
+  @spec get_authors :: list
+  def get_authors() do
+    Authors.list_authors()
+    |> Enum.map(fn author ->
+      {author.name, author.id}
+    end)
   end
 
   defp save_book(socket, :edit, book_params) do
