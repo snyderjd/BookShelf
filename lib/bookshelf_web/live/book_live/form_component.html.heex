@@ -18,7 +18,7 @@
     <%= error_tag f, :description %>
 
     <%= label f, :authors %>
-    <%= multiple_select f, :authors, get_authors() %>
+    <%= multiple_select f, :authors, get_authors(), selected: get_selected_author_ids(@book) %>
     <%= error_tag f, :authors %>
 
     <div>

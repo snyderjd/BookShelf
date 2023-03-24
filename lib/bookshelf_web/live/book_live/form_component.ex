@@ -25,8 +25,6 @@ defmodule BookshelfWeb.BookLive.FormComponent do
   end
 
   def handle_event("save", %{"book" => book_params}, socket) do
-    IO.inspect(book_params, label: "book_params")
-    IO.inspect(socket.assigns.action, label: "socket.assigns.action")
     save_book(socket, socket.assigns.action, book_params)
   end
 
@@ -36,6 +34,11 @@ defmodule BookshelfWeb.BookLive.FormComponent do
     |> Enum.map(fn author ->
       {author.name, author.id}
     end)
+  end
+
+  @spec get_selected_author_ids(Book) :: list
+  def get_selected_author_ids(book) do
+    Enum.map(book.authors, fn a -> a.id end)
   end
 
   defp save_book(socket, :edit, book_params) do
