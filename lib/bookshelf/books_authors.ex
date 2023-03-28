@@ -3,7 +3,6 @@ defmodule Bookshelf.BooksAuthors do
   import Ecto.Changeset
 
   schema "books_authors" do
-
     field :book_id, :id
     field :author_id, :id
 

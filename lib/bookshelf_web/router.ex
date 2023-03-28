@@ -34,7 +34,6 @@ defmodule BookshelfWeb.Router do
 
     live "/authors/:id", AuthorLive.Show, :show
     live "/authors/:id/show/edit", AuthorLive.Show, :edit
-
   end
 
   # Other scopes may use custom stacks.
